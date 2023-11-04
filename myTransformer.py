@@ -132,8 +132,8 @@ class PositionEmbedding(keras.layers.Layer):
         super().__init__()
         pos = np.arange(max_len)[:, None]
         pos_em = pos / np.power(10000, 2. * np.arange(model_dim)[None, :] / model_dim)
-        pos_em[:, 0::2] = pos_em.sin(pos_em[:, 0::2])
-        pos_em[:, 1::2] = pos_em.cos(pos_em[:, 1::2])
+        pos_em[:, 0::2] = np.sin(pos_em[:, 0::2])
+        pos_em[:, 1::2] = np.cos(pos_em[:, 1::2])
         pos_em = pos_em[None, :, :]
         self.pos_em = tf.constant(pos_em, dtype=tf.float32)
         self.embeddings = keras.layers.Embedding(
